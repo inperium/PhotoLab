@@ -99,5 +99,22 @@ public class IntArrayWorker
       }
     }
   }
+
+public int getCount(int numberToFind) {
+	int count = 0;
+	
+	for(int [] row : matrix)
+	{
+		for(int item : row)
+		{
+			if(numberToFind == item)
+			{
+				count++;
+			}
+		}
+	}
+	
+	return count;
+}
  
 }
