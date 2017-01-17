@@ -119,6 +119,44 @@ public class Picture extends SimplePicture
     } 
   }
   
+  	public void mirrorVerticalRightToLeft()
+  	{
+  		Pixel[][] pixels = this.getPixels2D();
+  		Pixel leftPixel = null;
+  		Pixel rightPixel = null;
+  		int width = pixels[0].length;
+	  
+  		for (int row = pixels.length -1; row >= 0; row--)
+  		{
+  			for(int col = width / 2 -1; col >=0; col--)
+  			{
+  				leftPixel = pixels[row][col];
+  				rightPixel = pixels[row][width -col -1];
+  				leftPixel.setColor(rightPixel.getColor());
+  			}
+  		}
+  	}
+	  
+	  public void mirrorHorizontalBottomToTop()
+	  {
+		  Pixel[][] pixels = this.getPixels2D();
+		  Pixel leftPixel = null;
+		  Pixel rightPixel = null;
+		  int height = pixels.length;
+		  int width = pixels[0].length -1;
+		  
+		  for (int col = width; col >= 0; col--)
+		  {
+			  for(int row = height / 2 -1; row >=0; row--)
+			  {
+				  leftPixel = pixels[row][col];
+				  rightPixel = pixels[height -row -1][col];
+				  leftPixel.setColor(rightPixel.getColor());
+			  }
+		  }
+		  
+	  }
+	  
   /** Mirror just part of a picture of a temple */
   public void mirrorTemple()
   {
