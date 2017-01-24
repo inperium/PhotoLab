@@ -65,14 +65,14 @@ public class PictureTester
   public static void testEdgeDetection()
   {
     Picture swan = new Picture("swan.jpg");
-    swan.edgeDetection(10);
+    swan.edgeDetection(25);
     swan.explore();
   }
   
   private static void testEdgyPhotoDetection() 
   {
 	  Picture swan = new Picture("swan.jpg");
-	  swan.edgyPhoto(27);
+	  swan.edgyPhoto(25);
 	  swan.explore();
 
 	}
