@@ -69,6 +69,14 @@ public class PictureTester
     swan.explore();
   }
   
+  private static void testEdgyPhotoDetection() 
+  {
+	  Picture swan = new Picture("swan.jpg");
+	  swan.edgyPhoto(27);
+	  swan.explore();
+
+	}
+  
   /** Main method for testing.  Every class can have a main
     * method in Java */
   public static void main(String[] args)
@@ -85,7 +93,7 @@ public class PictureTester
     //testFixUnderwater();
     //testMirrorVertical();
     //testMirrorVerticalRightToLeft();
-    testmirrorHorizontalBottomToTop();
+    //testmirrorHorizontalBottomToTop();
     //testMirrorTemple();
     //testMirrorArms();
     //testMirrorGull();
@@ -93,6 +101,7 @@ public class PictureTester
     //testCollage();
     //testCopy();
     //testEdgeDetection();
+    testEdgyPhotoDetection();
     //testEdgeDetection2();
     //testChromakey();
     //testEncodeAndDecode();
@@ -101,5 +110,4 @@ public class PictureTester
     //testClearBlueOverValue(200);
     //testGetAverageForColumn(0);
   }
-
 }
