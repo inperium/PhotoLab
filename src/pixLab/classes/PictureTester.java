@@ -27,6 +27,13 @@ public class PictureTester
     caterpillar.explore();
   }
   
+  public static void testSmallRandom(){
+	  Picture swan = new Picture("swan.jpg");
+	  swan.explore();
+	  swan.smallRandom();
+	  swan.explore();
+  }
+  
 
   public static void testMirrorVerticalRightToLeft() {
 		Picture swan = new Picture("swan.jpg");
@@ -77,6 +84,23 @@ public class PictureTester
 
 	}
   
+  private static void testSuperEdgyPhotoDetection() 
+  {
+	  Picture swan = new Picture("swan.jpg");
+	  swan.superEdgyPhoto(10, 100);
+	  swan.explore();
+	}
+  
+  private static void fiveImageFilter(){
+	  Picture femaleLionAndHall = new Picture("femaleLionAndHall.jpg");
+	  femaleLionAndHall.superEdgyPhoto(80, 100);
+	  femaleLionAndHall.mirrorVerticalRightToLeft();
+	  femaleLionAndHall.smallRandom();
+	  femaleLionAndHall.mirrorHorizontalBottomToTop();
+	  femaleLionAndHall.mirrorTemple();
+	  femaleLionAndHall.explore();
+  }
+  
   /** Main method for testing.  Every class can have a main
     * method in Java */
   public static void main(String[] args)
@@ -101,13 +125,16 @@ public class PictureTester
     //testCollage();
     //testCopy();
     //testEdgeDetection();
-    testEdgyPhotoDetection();
+    //testEdgyPhotoDetection();
     //testEdgeDetection2();
     //testChromakey();
     //testEncodeAndDecode();
     //testGetCountRedOverValue(250);
     //testSetRedToHalfValueInTopHalf();
+	//testSuperEdgyPhotoDetection();
+	//testSmallRandom();
     //testClearBlueOverValue(200);
     //testGetAverageForColumn(0);
+	fiveImageFilter();
   }
 }

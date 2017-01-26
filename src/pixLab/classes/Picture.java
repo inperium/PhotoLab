@@ -160,7 +160,7 @@ public class Picture extends SimplePicture
   /** Mirror just part of a picture of a temple */
   public void mirrorTemple()
   {
-    int mirrorPoint = 276;
+    int mirrorPoint = 21;
     Pixel leftPixel = null;
     Pixel rightPixel = null;
     int count = 0;
@@ -280,7 +280,44 @@ public class Picture extends SimplePicture
      }
    }
  }
-  
+ 
+ public void superEdgyPhoto(int edgeDist, int randomChange)
+ {
+	 Pixel leftPixel = null;
+	 Pixel rightPixel = null;
+	 Pixel[][] pixels = this.getPixels2D();
+	 Color rightColor = null;
+	 	for (int row = pixels.length-1; row > 0; row--)
+	 		{
+	 			for (int col = pixels[0].length-1; col > 0; col--)
+	 			{
+	 				leftPixel = pixels[row][col];
+	 				rightPixel = pixels[row][col-1];
+	 				rightColor = rightPixel.getColor();
+	 				if (leftPixel.colorDistance(rightColor) > edgeDist)
+	 				{
+	 					int colorChange = (int)(Math.random()*randomChange);
+	 					int totalRed = colorChange + pixels[row][col].getRed();
+	 					int totalGreen = colorChange + pixels[row][col].getGreen(); 
+	 					int totalBlue = colorChange + pixels[row][col].getBlue(); ;
+	 					leftPixel.setColor(new Color((totalRed > 255 ? 255 : totalRed), (totalGreen > 255 ? 255 : totalGreen), (totalBlue > 255 ? 255 : totalBlue)));
+       }
+     }
+   }
+ }
+ 
+public void smallRandom()
+{
+	Pixel [][] currentPicture = this.getPixels2D();
+	for (Pixel [] row : currentPicture){
+		for(Pixel currentPixel : row){
+			int redChange = (int)(Math.random()*15);
+			int finalRed = (redChange + currentPixel.getRed());
+			currentPixel.setColor(new Color((finalRed > 255 ? 255 : finalRed), currentPixel.getBlue(), currentPixel.getBlue()));
+		}
+		
+	}
+}
   
   /* Main method for testing - each class in Java can have a main 
    * method 
