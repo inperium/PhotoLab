@@ -81,14 +81,34 @@ public class PictureTester
 	  Picture swan = new Picture("swan.jpg");
 	  swan.edgyPhoto(25);
 	  swan.explore();
-
-	}
+  }
   
   private static void testSuperEdgyPhotoDetection() 
   {
 	  Picture swan = new Picture("swan.jpg");
 	  swan.superEdgyPhoto(10, 100);
 	  swan.explore();
+	}
+  
+  private static void testMirrorGull() {
+	  	Picture swan = new Picture("swan.jpg");
+		swan.explore();
+		swan.mirrorGull();
+		swan.explore();	
+	}
+  
+  private static void testMirrorArms() {
+	  Picture swan = new Picture("snowman.jpg");
+		swan.explore();
+		swan.mirrorArms();
+		swan.explore();	
+	}
+  
+  private static void testCopy(int startRow, int endrow) {
+	  	Picture swan = new Picture("snowman.jpg");
+		swan.explore();
+		swan.copy(swan, startRow, endrow);
+		swan.explore();	
 	}
   
   private static void fiveImageFilter(){
@@ -123,7 +143,7 @@ public class PictureTester
     //testMirrorGull();
     //testMirrorDiagonal();
     //testCollage();
-    //testCopy();
+    //testCopy(100, 100);
     //testEdgeDetection();
     //testEdgyPhotoDetection();
     //testEdgeDetection2();
@@ -135,6 +155,6 @@ public class PictureTester
 	//testSmallRandom();
     //testClearBlueOverValue(200);
     //testGetAverageForColumn(0);
-	fiveImageFilter();
+	//fiveImageFilter();
   }
 }
