@@ -1,4 +1,7 @@
 package pixLab.classes;
+
+import java.io.IOException;
+
 /**
  * This class contains class (static) methods
  * that will help you test the Picture class 
@@ -121,6 +124,18 @@ public class PictureTester
 	  femaleLionAndHall.explore();
   }
   
+  private static void valentineMeme() {
+	  Picture wifi = new Picture("wifi.jpg");
+	  wifi.valentineMeme();
+	  wifi.explore();
+	  try {
+		wifi.writeOrFail("IsaacsMeme.jpg");
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	}
+  
   /** Main method for testing.  Every class can have a main
     * method in Java */
   public static void main(String[] args)
@@ -156,5 +171,6 @@ public class PictureTester
     //testClearBlueOverValue(200);
     //testGetAverageForColumn(0);
 	//fiveImageFilter();
+	valentineMeme();
   }
 }
