@@ -228,9 +228,9 @@ public class Picture extends SimplePicture {
 	public void createCollage() {
 		Picture swan = new Picture("swan.jpg");
 		Picture temple = new Picture("temple.jpg");
-		this.copy(swan, 0, 0);
-		this.copy(temple, 100, 0);
-		this.copy(swan, 200, 0);
+		this.copy(swan, 5, 0);
+		this.copy(temple, 140, 0);
+		this.copy(swan, 240, 0);
 		Picture flowerNoBlue = new Picture(temple);
 		flowerNoBlue.zeroBlue();
 		this.copy(flowerNoBlue, 300, 0);
@@ -340,6 +340,23 @@ public class Picture extends SimplePicture {
 		beach.explore();
 		beach.zeroBlue();
 		beach.explore();
+	}
+
+	public void glitch(int glitchAmount) {
+		Pixel[][] currentPicture = this.getPixels2D();
+
+		//Randomizes pixels based on the glitch amount specified
+		for (Pixel[] row : currentPicture) {
+			for (Pixel currentPixel : row) {
+				int redChange = (int) (glitchAmount * 15);
+				int finalRed = (redChange + currentPixel.getRed());
+				currentPixel.setColor(
+						new Color((finalRed > 255 ? 255 : finalRed), currentPixel.getBlue(), currentPixel.getBlue()));
+			}
+		}
+		
+		//Copies Random Parts of the image to other parts
+		
 	}
 
 } // this } is the end of class Picture, put all new methods before this
