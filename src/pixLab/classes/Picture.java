@@ -342,21 +342,32 @@ public class Picture extends SimplePicture {
 		beach.explore();
 	}
 
-	public void glitch(int glitchAmount) {
+	public void glitch(Picture thePicture, int glitchAmount) {
+		
+		//Copies Random Parts of the image to other parts
+		this.glitchCopy();
 		Pixel[][] currentPicture = this.getPixels2D();
-
 		//Randomizes pixels based on the glitch amount specified
 		for (Pixel[] row : currentPicture) {
 			for (Pixel currentPixel : row) {
-				int redChange = (int) (glitchAmount * 15);
-				int finalRed = (redChange + currentPixel.getRed());
-				currentPixel.setColor(
-						new Color((finalRed > 255 ? 255 : finalRed), currentPixel.getBlue(), currentPixel.getBlue()));
+				//Red
+				int redChange = (int) (glitchAmount * 12);
+				int finalRed = ((redChange * (((int)(Math.random()) * 3) - 1)) + currentPixel.getRed());
+				//Green
+				int greenChange = (int) (glitchAmount * 12);
+				int finalGreen = ((greenChange * (((int)(Math.random()) * 3) - 1)) + currentPixel.getGreen());
+				//Blue
+				int blueChange = (int) (glitchAmount * 12);
+				int finalBlue = ((blueChange * (((int)(Math.random()) * 3) - 1)) + currentPixel.getBlue());
+				//Final Color
+				currentPixel.setColor(new Color(((finalRed > 255 || finalRed < 0) ? 120 : finalRed), ((finalGreen > 255 || finalGreen < 0) ? 120 : finalGreen), ((finalBlue > 255 || finalBlue < 0) ? 120 : finalBlue)));
 			}
 		}
-		
-		//Copies Random Parts of the image to other parts
-		
 	}
+	
+	public void glitchCopy() {
+		  
+	}
+
 
 } // this } is the end of class Picture, put all new methods before this

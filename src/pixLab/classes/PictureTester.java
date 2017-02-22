@@ -125,11 +125,11 @@ public class PictureTester {
 	}
 	}
 
-	private static void glitchFilter() {
-		Picture snowman = new Picture("snowman.jpg");
-		snowman.explore();
-		snowman.glitch(10);
-		snowman.explore();
+	private static void glitchFilter(String image, int glitchAmount) {
+		Picture theImage = new Picture(image);
+		theImage.explore();
+		theImage.glitch(theImage, glitchAmount);
+		theImage.explore();
 	}
 
 	/**
@@ -168,6 +168,6 @@ public class PictureTester {
 		// testGetAverageForColumn(0);
 		// fiveImageFilter();
 		// valentineMeme();
-		glitchFilter();
+		glitchFilter("snowman.jpg", 5);
 	}
 }
