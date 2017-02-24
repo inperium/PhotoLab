@@ -168,6 +168,6 @@ public class PictureTester {
 		// testGetAverageForColumn(0);
 		// fiveImageFilter();
 		// valentineMeme();
-		glitchFilter("snowman.jpg", 5);
+		glitchFilter("snowman.jpg", 90);
 	}
 }

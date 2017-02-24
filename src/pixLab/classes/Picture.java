@@ -343,31 +343,62 @@ public class Picture extends SimplePicture {
 	}
 
 	public void glitch(Picture thePicture, int glitchAmount) {
-		
-		//Copies Random Parts of the image to other parts
-		this.glitchCopy();
+
+		// Copies Random Parts of the image to other parts
+		this.glitchCopy(glitchAmount);
 		Pixel[][] currentPicture = this.getPixels2D();
-		//Randomizes pixels based on the glitch amount specified
+		// Randomizes pixels based on the glitch amount specified
 		for (Pixel[] row : currentPicture) {
 			for (Pixel currentPixel : row) {
-				//Red
-				int redChange = (int) (glitchAmount * 12);
-				int finalRed = ((redChange * (((int)(Math.random()) * 3) - 1)) + currentPixel.getRed());
-				//Green
-				int greenChange = (int) (glitchAmount * 12);
-				int finalGreen = ((greenChange * (((int)(Math.random()) * 3) - 1)) + currentPixel.getGreen());
-				//Blue
-				int blueChange = (int) (glitchAmount * 12);
-				int finalBlue = ((blueChange * (((int)(Math.random()) * 3) - 1)) + currentPixel.getBlue());
-				//Final Color
-				currentPixel.setColor(new Color(((finalRed > 255 || finalRed < 0) ? 120 : finalRed), ((finalGreen > 255 || finalGreen < 0) ? 120 : finalGreen), ((finalBlue > 255 || finalBlue < 0) ? 120 : finalBlue)));
+				// Red
+				int redChange = (int) (glitchAmount/10);
+				int finalRed = ((redChange * (((int) (Math.random()) * 3) - 1)) + currentPixel.getRed());
+				// Green
+				int greenChange = (int) (glitchAmount/10);
+				int finalGreen = ((greenChange * (((int) (Math.random()) * 3) - 1)) + currentPixel.getGreen());
+				// Blue
+				int blueChange = (int) (glitchAmount/10);
+				int finalBlue = ((blueChange * (((int) (Math.random()) * 3) - 1)) + currentPixel.getBlue());
+				// Final Color
+				currentPixel.setColor(new Color(((finalRed > 255 || finalRed < 0) ? 120 : finalRed),
+						((finalGreen > 255 || finalGreen < 0) ? 120 : finalGreen),
+						((finalBlue > 255 || finalBlue < 0) ? 120 : finalBlue)));
 			}
 		}
 	}
-	
-	public void glitchCopy() {
-		  
-	}
 
+	public void glitchCopy(int amount) {
+		int glitch = amount;
+		Pixel[][] pixels = this.getPixels2D();
+		int width = this.getWidth();
+		int height = this.getHeight();
+		for (int index = 0; index < glitch; index++) {
+			int startWidth = ((int) (Math.random() * 100000) % width);
+			int endWidth = ((int) (Math.random() * 100000) % (width - startWidth));
+			int startHeight = ((int) (Math.random() * 100000) % height);
+			int endHeight = ((int) (Math.random() * 100000) % (height - startHeight));
+			int randomNumber = ((int) (Math.random()* 4))+1;
+			System.out.println(randomNumber);
+			for (int positionWidth = startWidth; positionWidth < endWidth; positionWidth++) {
+				for (int positionHeight = startHeight; positionHeight < endHeight; positionHeight++) {
+					if (randomNumber == 3) {
+						System.out.println("1");
+						pixels[positionHeight][positionWidth]
+								.setColor(new Color(pixels[positionHeight][positionWidth].getRed(),
+										pixels[positionHeight][positionWidth].getGreen(), 0));
+					} else if (randomNumber == 2) {
+						System.out.println("2");
+						pixels[positionHeight][positionWidth]
+								.setColor(new Color(0, pixels[positionHeight][positionWidth].getGreen(),
+										pixels[positionHeight][positionWidth].getBlue()));
+					} else {System.out.println("3");
+						pixels[positionHeight][positionWidth]
+								.setColor(new Color(pixels[positionHeight][positionWidth].getRed(), 0,
+										pixels[positionHeight][positionWidth].getBlue()));
+					}
+				}
+			}
+		}
+	}
 
 } // this } is the end of class Picture, put all new methods before this
