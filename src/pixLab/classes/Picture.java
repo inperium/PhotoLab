@@ -1,12 +1,7 @@
 package pixLab.classes;
 
-import java.awt.*;
-import java.awt.font.*;
-import java.awt.geom.*;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
-import java.text.*;
-import java.util.*;
-import java.util.List; // resolves problem with java.awt.List and java.util.List
 
 /**
  * A class that represents a picture. This class inherits from SimplePicture and
@@ -16,6 +11,8 @@ import java.util.List; // resolves problem with java.awt.List and java.util.List
  */
 public class Picture extends SimplePicture {
 	///////////////////// constructors //////////////////////////////////
+
+	public Object decode;
 
 	/**
 	 * Constructor that takes no arguments
@@ -351,13 +348,13 @@ public class Picture extends SimplePicture {
 		for (Pixel[] row : currentPicture) {
 			for (Pixel currentPixel : row) {
 				// Red
-				int redChange = (int) (glitchAmount/10);
+				int redChange = (int) (glitchAmount / 10);
 				int finalRed = ((redChange * (((int) (Math.random()) * 3) - 1)) + currentPixel.getRed());
 				// Green
-				int greenChange = (int) (glitchAmount/10);
+				int greenChange = (int) (glitchAmount / 10);
 				int finalGreen = ((greenChange * (((int) (Math.random()) * 3) - 1)) + currentPixel.getGreen());
 				// Blue
-				int blueChange = (int) (glitchAmount/10);
+				int blueChange = (int) (glitchAmount / 10);
 				int finalBlue = ((blueChange * (((int) (Math.random()) * 3) - 1)) + currentPixel.getBlue());
 				// Final Color
 				currentPixel.setColor(new Color(((finalRed > 255 || finalRed < 0) ? 120 : finalRed),
@@ -377,7 +374,7 @@ public class Picture extends SimplePicture {
 			int endWidth = ((int) (Math.random() * 100000) % (width - startWidth));
 			int startHeight = ((int) (Math.random() * 100000) % height);
 			int endHeight = ((int) (Math.random() * 100000) % (height - startHeight));
-			int randomNumber = ((int) (Math.random()* 4))+1;
+			int randomNumber = ((int) (Math.random() * 4)) + 1;
 			System.out.println(randomNumber);
 			for (int positionWidth = startWidth; positionWidth < endWidth; positionWidth++) {
 				for (int positionHeight = startHeight; positionHeight < endHeight; positionHeight++) {
@@ -391,11 +388,80 @@ public class Picture extends SimplePicture {
 						pixels[positionHeight][positionWidth]
 								.setColor(new Color(0, pixels[positionHeight][positionWidth].getGreen(),
 										pixels[positionHeight][positionWidth].getBlue()));
-					} else {System.out.println("3");
+					} else {
+						System.out.println("3");
 						pixels[positionHeight][positionWidth]
 								.setColor(new Color(pixels[positionHeight][positionWidth].getRed(), 0,
 										pixels[positionHeight][positionWidth].getBlue()));
 					}
+				}
+			}
+		}
+	}
+
+	public void encode(Picture hiddenPicture) {
+
+		Pixel[][] currentPicture = this.getPixels2D();
+		Pixel[][] hiddenData = hiddenPicture.getPixels2D();
+
+		Pixel hiddenPixel = null;
+		Pixel currentPixel = null;
+
+		for (int row = 0; row < currentPicture.length; row++) {
+			for (int col = 0; col < currentPicture[0].length; col++) {
+				hiddenPixel = hiddenData[row][col];
+				currentPixel = currentPicture[row][col];
+
+				if (hiddenPixel.getRed() == 255 && hiddenPixel.getGreen() == 255 && hiddenPixel.getBlue() == 255) {
+					int currentRed = currentPixel.getRed();
+					if (currentRed % 2 == 0) {
+						currentPixel.setRed(currentRed - 1);
+					}
+				} else {
+					int currentRed = currentPixel.getRed();
+					if (currentRed % 2 != 0) {
+						currentPixel.setRed(currentRed + 1);
+					}
+				}
+			}
+		}
+
+	}
+
+	public void decode() {
+		Pixel[][] decoded = this.getPixels2D();
+		Pixel currentPixel = null;
+
+		for (int row = 0; row < decoded.length; row++) {
+			for (int col = 0; col < decoded[0].length; col++) {
+				currentPixel = decoded[row][col];
+				int currentRed = currentPixel.getRed();
+				if (currentRed % 2 == 0) {
+					currentPixel.setColor(new Color(255, 0, 0));
+				}
+			}
+		}
+		this.explore();
+	}
+
+	public void chromakey(Picture greenScreen) {
+		Pixel[][] sourcePixels = this.getPixels2D();
+		Pixel[][] pixels = greenScreen.getPixels2D();
+
+		for (int row = 0; row < sourcePixels.length; row++) {
+			for (int col = 0; col < sourcePixels[0].length; col++) {
+				Pixel pixel = sourcePixels[row][col];
+				int pixelRed = pixel.getRed();
+				int pixelGreen = pixel.getGreen();
+				int pixelBlue = pixel.getBlue();
+				
+				Color colorToTakeOut = new Color(255,255,255);
+				int diviation=10;
+				
+				if(!(pixelRed <  colorToTakeOut.getRed() + diviation && pixelRed > colorToTakeOut.getRed() - diviation &&
+						pixelGreen < colorToTakeOut.getGreen() + diviation && pixelGreen > colorToTakeOut.getGreen() - diviation &&
+						pixelBlue < colorToTakeOut.getBlue() + diviation && pixelBlue > colorToTakeOut.getBlue() - diviation)){
+					pixels[row][col].setColor(pixel.getColor());
 				}
 			}
 		}

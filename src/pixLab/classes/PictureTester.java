@@ -131,6 +131,25 @@ public class PictureTester {
 		theImage.glitch(theImage, glitchAmount);
 		theImage.explore();
 	}
+	
+	public static void testSteganography()
+	{
+		Picture source = new Picture("encode.png");
+		source.explore();
+		Picture hidden= new Picture("hidden.png");
+		source.encode(hidden);
+		source.explore();
+		hidden.explore();
+		source.decode();
+	}
+	
+	public static void testChromakey()
+	{
+		Picture source = new Picture("kitten2.jpg");
+		Picture greenScreen = new Picture("blue-mark.jpg");
+		source.chromakey(greenScreen);
+		source.explore();
+	}
 
 	/**
 	 * Main method for testing. Every class can have a main method in Java
@@ -168,6 +187,7 @@ public class PictureTester {
 		// testGetAverageForColumn(0);
 		// fiveImageFilter();
 		// valentineMeme();
-		glitchFilter("snowman.jpg", 90);
+		//glitchFilter("snowman.jpg", 90);
+		testChromakey();
 	}
 }
