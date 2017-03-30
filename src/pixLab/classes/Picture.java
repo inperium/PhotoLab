@@ -444,27 +444,30 @@ public class Picture extends SimplePicture {
 		this.explore();
 	}
 
-	public void chromakey(Picture greenScreen) {
-		Pixel[][] sourcePixels = this.getPixels2D();
-		Pixel[][] pixels = greenScreen.getPixels2D();
+	public void chromaKey(Color greenscreenColor, Picture source, int diviation) {
+		//Get the pixel information needed
+		Pixel[][] sourcePixels = source.getPixels2D();
+		Pixel[][] pixels = this.getPixels2D();
 
+		//Loop through the picture
 		for (int row = 0; row < sourcePixels.length; row++) {
 			for (int col = 0; col < sourcePixels[0].length; col++) {
+				//Get the inforation from the position we're at
 				Pixel pixel = sourcePixels[row][col];
-				int pixelRed = pixel.getRed();
-				int pixelGreen = pixel.getGreen();
-				int pixelBlue = pixel.getBlue();
+				int red = pixel.getRed();
+				int green = pixel.getGreen();
+				int blue = pixel.getBlue();
 				
-				Color colorToTakeOut = new Color(255,255,255);
-				int diviation=10;
-				
-				if(!(pixelRed <  colorToTakeOut.getRed() + diviation && pixelRed > colorToTakeOut.getRed() - diviation &&
-						pixelGreen < colorToTakeOut.getGreen() + diviation && pixelGreen > colorToTakeOut.getGreen() - diviation &&
-						pixelBlue < colorToTakeOut.getBlue() + diviation && pixelBlue > colorToTakeOut.getBlue() - diviation)){
+				//Check if color plus or minus the given amount is close enough to the user-specified color, and if so lets the background show through
+				if(!(red < greenscreenColor.getRed() + diviation && red > greenscreenColor.getRed() - diviation &&
+						green < greenscreenColor.getGreen() + diviation && green > greenscreenColor.getGreen() - diviation &&
+						blue < greenscreenColor.getBlue() + diviation && blue > greenscreenColor.getBlue() - diviation)){
 					pixels[row][col].setColor(pixel.getColor());
 				}
 			}
 		}
 	}
 
-} // this } is the end of class Picture, put all new methods before this
+} 
+
+// this } is the end of class Picture, put all new methods before this

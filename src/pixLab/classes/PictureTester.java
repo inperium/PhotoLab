@@ -1,5 +1,6 @@
 package pixLab.classes;
 
+import java.awt.Color;
 import java.io.IOException;
 
 /**
@@ -145,9 +146,10 @@ public class PictureTester {
 	
 	public static void testChromakey()
 	{
-		Picture source = new Picture("kitten2.jpg");
-		Picture greenScreen = new Picture("blue-mark.jpg");
-		source.chromakey(greenScreen);
+		Picture source = new Picture("blue-mark.jpg");
+		source.explore();
+		Picture greenScreen = new Picture("kitten2.jpg");
+		source.chromaKey(new Color(255, 255, 255), greenScreen, 150);
 		source.explore();
 	}
 
